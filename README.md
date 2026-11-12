@@ -10,24 +10,26 @@
 ---
 
 ## 💡 About GitVoice
-**GitVoice** is an innovative healthcare software solution designed to eliminate manual documentation fatigue in hospital wards. By leveraging universal browser audio recording (`MediaRecorder API`) and smart AI co-pilots (`gemini-copilot.js`), GitVoice transforms spoken nursing notes into structured, instant medical records. 
+**GitVoice** is an innovative healthcare software solution designed to eliminate manual documentation fatigue in hospital wards. By leveraging browser speech recognition, modular core logic (`core.js`), and smart AI co-pilots (`gemini-copilot.js`), GitVoice transforms spoken nursing notes into structured, instant medical records. 
 
 *Talk less, care more. 🩺✨*
 
 ---
 
 ## ✨ Core Features
-- **Universal Audio Capture:** Powered by the browser's native `MediaRecorder API` for seamless, plugin-free voice recording across all desktop, tablet, and mobile devices used in clinical environments.
-- **GitVoice Co-Pilot:** Intelligent assistant architecture (`gemini-copilot.js` + backend) built to process voice commands, clinical notes, and medical workflows in real-time.
-- **Zero-Bloat Architecture:** Clean, lightweight codebase designed for fast deployment, high reliability, and low latency during high-stress hospital shifts.
+- **Universal Voice Dictation:** Powered by native browser speech recognition for real-time live subtitles and seamless, plugin-free clinical voice logging across all desktop, tablet, and mobile devices.
+- **Modular Core Logic (`core.js`):** Clean separation of clinical templates (SOAP, DAR, SBAR, I-PASS), vital signs auto-parsing, and text normalization.
+- **Persistent Local Storage (`storage-manager.js`):** Ensures patient notes and logs remain securely saved in the browser across shifts and page reloads.
+- **GitVoice Co-Pilot:** Intelligent assistant architecture built to process voice commands, clinical notes, and medical workflows in real-time.
 - **Secure & Version-Controlled:** Built under strict standards with full open-source MIT compliance.
 
 ---
 
 ## 🛠️ Tech Stack
-* **Frontend:** HTML5, CSS3, Modern JavaScript (`MediaRecorder API`)
-* **AI & Voice Processing:** Gemini AI Copilot Integration (`gemini-copilot.js`)
-* **Backend:** Python, FastAPI, Uvicorn, Pydub
+* **Frontend:** HTML5, Tailwind CSS, Modern JavaScript
+* **Core Logic & Storage:** `core.js`, `storage-manager.js`
+* **AI & Voice Processing:** Gemini AI Copilot Integration (`gemini-copilot.js`) & Web Speech API
+* **Backend (Optional):** Python, FastAPI, Uvicorn, Pydub
 * **Versioning & Organization:** Managed under `handdlevault-official`
 
 ---
@@ -36,9 +38,10 @@
 ```text
 GitVoice/
 │
-├── index.html            # Main clinical dashboard UI
-├── voice-processor.js    # MediaRecorder API audio handler
-├── gemini-copilot.js     # AI co-pilot logic & processing
+├── index.html            # Main mobile-responsive clinical dashboard UI
+├── core.js               # Clinical data parsing, vitals & templates core logic
+├── storage-manager.js    # LocalStorage handler for persistent charts
+├── gemini-copilot.js     # AI co-pilot logic & processing fallback
 ├── main.py               # FastAPI backend server (Python)
 ├── requirements.txt      # Python dependencies
 ├── .gitignore            # Audio recordings & temp file filters
@@ -46,13 +49,14 @@ GitVoice/
 
 🚀 Quick Start Guide
 1. Clone the Repository
-git clone [https://github.com/handdlevault-official/handdlevault-official-GitVoice.git](https://github.com/handdlevault-official/handdlevault-official-GitVoice.git)
+git clone https://github.com/handdlevault-official/handdlevault-official-GitVoice.git
 cd handdlevault-official-GitVoice
 
 2. Run the Frontend
-Simply open index.html in any modern web browser to access the dashboard interface and test the voice recording features.
+Simply open index.html in any modern web browser (Google Chrome recommended) to access the dashboard interface and test the voice recording features.
 
-3. Set Up the Backend (Python/FastAPI)
+3. Set Up the Backend (Optional - Python/FastAPI)
+
 # Install required dependencies
 pip install -r requirements.txt
 
@@ -64,4 +68,4 @@ Distributed under the MIT License. See the LICENSE file for more information.
 Managed by handdlevault-official 🚀
 
 
-I-save mo na ito sa iyong repository at pwede mo na ring i-update ang iyong website codebase sa GitHub!
+Kopyahin mo lang iyan at i-update sa iyong `README.md` sa GitHub repository para maging malinis, propesyonal, at sakto sa ating code files ang buong pahina!
