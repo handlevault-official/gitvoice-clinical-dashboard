@@ -1,7 +1,5 @@
-// GitVoice Gemini Co-Pilot Integration
 async function processGitVoiceAudio(audioBlob) {
     const formData = new FormData();
-    // I-attach ang recorded blob bilang .webm file
     formData.append("file", audioBlob, "nursing_note.webm");
 
     try {
@@ -15,12 +13,24 @@ async function processGitVoiceAudio(audioBlob) {
         }
 
         const data = await response.json();
-        console.log("GitVoice Backend Response:", data);
         
-        updateStatus("✅ Co-Pilot received and logged clinical note! 🩺✨", "text-emerald-600 font-semibold");
+        updateStatus("✅ Clinical SOAP Note generated! 🩺✨", "text-emerald-600 font-semibold");
+        
+        // Ipakita ang SOAP Note sa Dashboard
+        const resultSection = document.getElementById("resultSection");
+        const soapOutput = document.getElementById("soapOutput");
+        
+        soapOutput.innerText = data.soap_note;
+        resultSection.classList.remove("hidden");
         
     } catch (error) {
         console.error("Failed to send audio to backend:", error);
-        updateStatus("⚠️ Offline Mode: Audio recorded locally (Backend not running).", "text-amber-600");
+        updateStatus("⚠️ Error: Make sure FastAPI server & GEMINI_API_KEY are active.", "text-amber-600");
     }
+}
+
+function copyChart() {
+    const text = document.getElementById("soapOutput").innerText;
+    navigator.clipboard.writeText(text);
+    updateStatus("📋 Copied SOAP Note to clipboard!", "text-blue-600");
 }
