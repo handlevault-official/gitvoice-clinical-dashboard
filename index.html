@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitVoice | Clinical Dashboard</title>
-    <!-- Tailwind CSS CDN (Awtomatikong maganda ang design, walang custom CSS na kailangan) -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 flex items-center justify-center min-h-screen p-4 m-0">
 
     <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg border border-slate-100 text-center">
-        <header class="mb-6">
+        <header class="mb-5">
             <h1 class="text-3xl font-extrabold text-blue-900 tracking-tight">🎙️ GitVoice</h1>
             <p class="text-sm text-slate-500 mt-1">Voice-Activated Clinical Assistant for Nurses</p>
         </header>
 
+        <!-- Mode Switcher (Voice-to-Text vs Text-to-Voice) -->
+        <div class="flex bg-slate-100 p-1 rounded-xl mb-6">
+            <button id="tabVoiceToText" onclick="switchMode('vtt')" class="w-1/2 py-2 text-xs font-bold rounded-lg bg-white text-blue-900 shadow-sm transition cursor-pointer">
+                🎤 Voice-to-Chart
+            </button>
+            <button id="tabTextToVoice" onclick="switchMode('ttv')" class="w-1/2 py-2 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-700 transition cursor-pointer">
+                🔊 Text-to-Voice
+            </button>
+        </div>
+
         <main class="space-y-6">
-            <section class="bg-blue-50/50 p-6 rounded-xl border border-blue-100">
+            <!-- SECTION 1: Voice-to-Chart -->
+            <section id="vttSection" class="bg-blue-50/50 p-6 rounded-xl border border-blue-100">
                 <h2 class="text-lg font-semibold text-slate-700">Ward Voice Command</h2>
                 <p class="text-xs text-slate-500 mt-1 mb-6">Tap record to dictate patient logs or clinical notes safely.</p>
                 
@@ -34,18 +44,51 @@
                 </div>
             </section>
 
-            <!-- Clinical SOAP Note Output Box (Lilitaw pagka-process ng Gemini AI) -->
+            <!-- SECTION 2: Text-to-Voice Command (Nakatago muna hanggang pindutin ang tab) -->
+            <section id="ttvSection" class="hidden bg-indigo-50/50 p-6 rounded-xl border border-indigo-100 text-left">
+                <h2 class="text-lg font-semibold text-slate-700 text-center">Text-to-Voice Command</h2>
+                <p class="text-xs text-slate-500 mt-1 mb-4 text-center">Type handover notes or alerts for GitVoice to read aloud.</p>
+                
+                <textarea id="ttsInput" rows="4" placeholder="e.g., Attention Ward 4: Room 302 needs vital signs recheck at 3:00 AM..." class="w-full bg-white text-slate-700 text-xs p-3 rounded-xl border border-indigo-200 focus:outline-none focus:border-indigo-500 mb-3"></textarea>
+                
+                <div class="flex gap-2">
+                    <button onclick="speakTextCommand()" class="w-3/4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-xl shadow-md cursor-pointer transition text-xs flex items-center justify-center gap-2">
+                        🔊 Speak Command
+                    </button>
+                    <button onclick="stopSpeaking()" class="w-1/4 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-3 px-2 rounded-xl cursor-pointer transition text-xs">
+                        ⏹️ Stop
+                    </button>
+                </div>
+            </section>
+
+            <!-- Clinical SOAP Note Output Box (Read-Only + Read Aloud Button) -->
             <section id="resultSection" class="hidden bg-slate-900 text-slate-100 p-5 rounded-xl text-left shadow-inner">
                 <div class="flex justify-between items-center mb-2 border-b border-slate-700 pb-2">
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">📋 Generated SOAP Chart</span>
-                    <button onclick="copyChart()" class="text-xs bg-slate-700 hover:bg-slate-600 px-2 py-1 rounded text-white cursor-pointer">Copy</button>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">📋 SOAP Chart (Read-Only)</span>
+                    <div class="flex gap-1.5">
+                        <button onclick="readChartAloud()" class="text-xs bg-indigo-600 hover:bg-indigo-500 px-2 py-1 rounded text-white cursor-pointer">🔊 Read</button>
+                        <button onclick="copyChart()" class="text-xs bg-slate-700 hover:bg-slate-600 px-2 py-1 rounded text-white cursor-pointer">Copy</button>
+                    </div>
                 </div>
-                <div id="soapOutput" class="text-xs leading-relaxed whitespace-pre-line font-mono text-slate-200"></div>
+                <textarea id="soapOutput" readonly rows="7" class="w-full bg-slate-950 text-slate-200 font-mono text-xs p-3 rounded-lg border border-slate-800 focus:outline-none resize-none cursor-default"></textarea>
             </section>
         </main>
+
+        <!-- Monetization / Support Footer -->
+        <footer class="mt-8 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400">
+            <span>Managed by <strong class="text-slate-600">handdlevault.official</strong></span>
+            <div class="flex items-center gap-3">
+                <a href="https://ko-fi.com/YOUR_KOFI_USERNAME" target="_blank" class="hover:text-rose-500 transition-colors flex items-center gap-1 font-medium text-slate-500">
+                    ☕ Support on Ko-fi
+                </a>
+                <span>•</span>
+                <a href="https://github.com/sponsors/YOUR_GITHUB_USERNAME" target="_blank" class="hover:text-purple-600 transition-colors flex items-center gap-1 font-medium text-slate-500">
+                    💖 Sponsor
+                </a>
+            </div>
+        </footer>
     </div>
 
-    <!-- Scripts -->
     <script src="voice-processor.js"></script>
     <script src="gemini-copilot.js"></script>
 </body>
