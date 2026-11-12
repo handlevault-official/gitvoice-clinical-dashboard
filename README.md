@@ -1,9 +1,10 @@
 # 🎙️ GitVoice
-> *Enterprise-grade, voice-powered clinical dashboard built for nurses surviving toxic shifts and 3 AM charting fatigue.*
+> *Enterprise-grade, voice-powered clinical dashboard built for nurses.*
+
+![GitVoice Dashboard Preview](gitvoice-preview.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Status](https://img.shields.io/badge/Status-Investor%20Ready-success)](https://github.com/handdlevault.official/GitVoice)
-[![Tech Stack](https://img.shields.io/badge/Stack-FastAPI%20%7C%20Gemini%20AI%20%7C%20MediaRecorder-blue)]()
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-rose?style=for-the-badge&logo=ko-fi)](https://ko-fi.com/handlevaultofficial)
 
 ---
 
