@@ -4,7 +4,7 @@
 ![GitVoice Dashboard Preview](gitvoice-preview.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-rose?style=for-the-badge&logo=ko-fi)](https://ko-fi.com/handlevaultofficial)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-rose?style=for-the-badge&logo=ko-fi)](ko-fi.com//handlevaultofficial)
 
 ---
 
@@ -45,7 +45,7 @@ GitVoice/
 
 🚀 Quick Start Guide
 1. Clone the Repository
-git clone [https://github.com/handdlevault.official/GitVoice.git](https://github.com/handdlevault.official/GitVoice.git)
+git clone [https://github.com/handlevault.official/GitVoice.git](https://github.com/handlevault.official/GitVoice.git)
 cd GitVoice
 
 2. Run the Frontend
