@@ -1,0 +1,10 @@
+# Audio recordings & temporary media
+*.webm
+*.mp3
+*.wav
+*.ogg
+
+# System & Environment Files
+.DS_Store
+.env
+__pycache__/
