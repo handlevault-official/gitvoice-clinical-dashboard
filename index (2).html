@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>CareNote Assist: voice and text charting helper</title>
+<meta name="description" content="Private, offline-capable drafting helper for nurses and doctors: dictate or type notes in DAR, SOAP, SBAR and handoff formats.">
+<meta name="theme-color" content="#0b1220">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<style>
+:root{--bg:#0b1220;--card:#121b2e;--ink:#e8eefc;--mute:#93a3c0;--accent:#2dd4bf;--accent-ink:#04201c;--warn:#fbbf24;--bad:#f87171;--line:#22304d;--field:#0e1627}
+@media(prefers-color-scheme:light){:root{--bg:#f4f7fb;--card:#fff;--ink:#0f1a2e;--mute:#53627d;--accent:#0f9b8e;--accent-ink:#fff;--warn:#a16207;--bad:#b91c1c;--line:#dbe3ef;--field:#f8fafd}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:env(safe-area-inset-bottom)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:10px 14px;min-height:44px}
+button.primary{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:700}
+button.danger{color:var(--bad)}button:disabled{opacity:.5}
+input,select,textarea{width:100%;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+textarea{resize:vertical;min-height:70px}input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+label{display:block;font-size:13px;color:var(--mute);margin-bottom:4px}
+header.top{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--line);padding-top:max(10px,env(safe-area-inset-top))}
+.brand{font-weight:800;color:var(--accent)}.tabs{display:flex;gap:6px}.tabs button{padding:8px 14px;min-height:40px}.tabs button.on{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:700}
+.safety{margin:0;padding:8px 14px;background:rgba(251,191,36,.12);color:var(--warn);font-size:13px;border-bottom:1px solid var(--line)}
+main{max-width:860px;margin:0 auto;padding:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.full{grid-column:1/-1}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hint{color:var(--mute);font-size:13px;margin:4px 0}.warn{color:var(--warn);font-size:14px;margin:6px 0}
+details>summary{cursor:pointer;font-weight:700;list-style:none}details>summary::-webkit-details-marker{display:none}details>summary::before{content:"\25B8  "}details[open]>summary::before{content:"\25BE  "}
+.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.vgrid input.flag{border-color:var(--warn);background:rgba(251,191,36,.14)}
+.fld{margin-bottom:12px}.fld .head{display:flex;justify-content:space-between;align-items:center;gap:8px}.fld .tools{display:flex;gap:6px}
+.mic{padding:6px 12px;min-height:38px}.mic.on{background:var(--bad);color:#fff;border-color:transparent}
+#micState{font-size:14px;color:var(--mute)}body[data-mic=on] #micState{color:var(--bad);font-weight:700}#interim{color:var(--mute);font-style:italic;min-height:1.4em;font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.chip{padding:6px 12px;min-height:36px;border-radius:99px;font-size:14px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:12px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;margin:0}
+.note-item{display:block;width:100%;text-align:left;margin-bottom:8px}.badge{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mute);margin-right:6px}.badge.final{color:var(--accent);border-color:var(--accent)}
+.overlay{position:fixed;inset:0;z-index:20;background:var(--bg);display:grid;place-items:center;padding:20px}.overlay form{max-width:360px;width:100%}
+dialog{width:min(640px,94vw);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:16px}dialog::backdrop{background:rgba(0,0,0,.6)}
+#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);max-width:92vw;background:#111;color:#fff;padding:10px 16px;border-radius:10px;z-index:30;font-size:14px;box-shadow:0 6px 24px rgba(0,0,0,.4)}
+#printArea{display:none}
+@media(max-width:560px){.vgrid{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.brand{width:100%}}
+@media print{body>*:not(#printArea){display:none!important}#printArea{display:block!important;background:#fff;color:#000;border:0;font-size:12pt}}
+</style>
+</head>
+<body>
+<div id="lock" class="overlay" hidden>
+  <form id="lockForm" autocomplete="off">
+    <h1 style="color:var(--accent)">CareNote Assist</h1>
+    <p class="hint">This device is locked. Enter your passcode to open your notes.</p>
+    <label for="lockPass">Passcode</label><input id="lockPass" type="password" autocomplete="current-password" required>
+    <p id="lockMsg" class="warn" role="alert"></p>
+    <button class="primary" style="width:100%">Unlock</button>
+  </form>
+</div>
+
+<header class="top">
+  <span class="brand">CareNote Assist</span>
+  <nav class="tabs" aria-label="Sections"><button data-tab="new" class="on">New note</button><button data-tab="notes">Notes</button><button data-tab="settings">Settings</button></nav>
+  <div class="row"><button id="btnInstall" hidden>Install</button><button id="btnLock" hidden aria-label="Lock now" title="Lock now">Lock</button></div>
+</header>
+<p class="safety" role="note">Drafting aid only. Not an official medical record or a medical device. Always review, follow your facility's policy, and file in your official system. Do not store patient-identifying information here unless your facility allows it.</p>
+
+<main id="app" hidden>
+<section id="tab-new">
+  <div class="card grid2">
+    <div><label for="role">Your role</label><select id="role"></select></div>
+    <div><label for="tpl">Note format</label><select id="tpl"></select></div>
+    <div class="full"><label for="patient">Patient label (bed/room or initials only)</label><input id="patient" maxlength="40" autocomplete="off" placeholder="e.g. Bed 12 / J.D."></div>
+  </div>
+  <p id="phiWarn" class="warn" role="alert" hidden></p>
+
+  <div class="card">
+    <div class="row"><div style="flex:1;min-width:180px"><label for="vlang">Voice language</label><select id="vlang"></select></div><div><span id="micState">Mic off</span> <button id="btnStop" hidden>Stop</button></div></div>
+    <div id="interim" aria-live="polite"></div>
+    <p class="hint">Tap the mic next to any field and speak. Say "period", "comma", "new line" for punctuation, "next field" to move on, "stop dictation" to finish. Voice recognition depends on your browser; see Settings for privacy notes.</p>
+  </div>
+
+  <details id="vitalsCard" class="card" open>
+    <summary>Vitals</summary>
+    <div class="vgrid">
+      <div><label for="v-sbp">BP systolic</label><input id="v-sbp" inputmode="numeric"></div><div><label for="v-dbp">BP diastolic</label><input id="v-dbp" inputmode="numeric"></div>
+      <div><label for="v-hr">Heart rate</label><input id="v-hr" inputmode="numeric"></div><div><label for="v-rr">Resp. rate</label><input id="v-rr" inputmode="numeric"></div>
+      <div><label for="v-temp">Temp <span id="tempLbl">&deg;C</span></label><input id="v-temp" inputmode="decimal"></div><div><label for="v-spo2">SpO2 %</label><input id="v-spo2" inputmode="numeric"></div>
+      <div><label for="v-pain">Pain 0-10</label><input id="v-pain" inputmode="numeric"></div>
+    </div>
+    <label for="vquick">Quick entry: type or say all vitals at once</label>
+    <div class="row"><input id="vquick" style="flex:1;min-width:200px" placeholder="BP 120/80, HR 88, RR 18, temp 37.2, SpO2 98, pain 3"><button id="vmic" class="mic" data-target="vquick" aria-label="Dictate vitals">Mic</button><button id="vfill">Fill</button></div>
+    <p class="hint">Highlighted boxes are outside your set ranges (Settings). They are reminders only; use clinical judgment.</p>
+    <button id="vinsert">Insert vitals into note</button>
+  </details>
+
+  <div id="fields"></div>
+
+  <details id="chipsCard" class="card"><summary>Quick phrases</summary><p class="hint">Only insert statements that are true for your patient right now. Edit this list in Settings.</p><div id="chips" class="chips"></div></details>
+
+  <div class="actions">
+    <button id="btnSave" class="primary">Save draft</button><button id="btnFinal">Finalize</button><button id="btnCopy">Copy</button><button id="btnTxt">Download .txt</button><button id="btnPrint">Print</button><button id="btnNew" class="danger">Clear form</button>
+  </div>
+  <details class="card"><summary>Preview</summary><pre id="preview"></pre></details>
+</section>
+
+<section id="tab-notes" hidden>
+  <div class="card"><label for="search">Search notes (patient label, text, format)</label><input id="search" type="search" placeholder="Search"><p id="notesCount" class="hint"></p></div>
+  <div id="notesList"></div>
+</section>
+
+<section id="tab-settings" hidden>
+  <div class="card"><h2 style="margin-top:0">Profile</h2><div class="grid2">
+    <div><label for="s-author">Name on notes (e.g. R. Santos, RN)</label><input id="s-author"></div><div><label for="s-unit">Unit / ward (optional)</label><input id="s-unit"></div>
+    <div><label for="s-temp">Temperature unit</label><select id="s-temp"><option value="C">Celsius</option><option value="F">Fahrenheit</option></select></div>
+    <div><label for="s-lock">Auto-lock after (minutes, needs passcode)</label><input id="s-lock" type="number" min="1" max="120"></div>
+  </div></div>
+
+  <div class="card"><h2 style="margin-top:0">Voice</h2>
+    <label><input id="s-punct" type="checkbox" style="width:auto"> Spoken punctuation (say "period", "comma", "new line")</label>
+    <label><input id="s-ondevice" type="checkbox" style="width:auto"> Prefer on-device voice recognition when the browser supports it</label>
+    <p class="hint"><strong>Privacy note:</strong> in many browsers (for example Chrome) voice recognition sends the audio to the browser maker's speech service, so it needs internet and the audio leaves your device. On-device mode keeps audio on the device but is not available in every browser or language. Typing never leaves your device. Avoid dictating identifying details unless your facility has approved the tool.</p></div>
+
+  <div class="card"><h2 style="margin-top:0">Vitals highlight ranges</h2><p class="hint">Generic adult defaults that only highlight values. Set what your unit uses.</p><div id="ranges" class="vgrid"></div></div>
+
+  <div class="card"><h2 style="margin-top:0">Quick phrases</h2><label for="s-phrases">One phrase per line</label><textarea id="s-phrases" rows="5"></textarea></div>
+
+  <div class="card"><h2 style="margin-top:0">Custom note formats</h2><p class="hint">Build your own template (for example a post-op check or a wound care note).</p><div id="ctList"></div><button id="ctAdd">Add format</button></div>
+
+  <div class="card"><h2 style="margin-top:0">Security</h2><div id="passArea"></div><p class="hint">Notes are saved only in this browser on this device. A passcode encrypts them (AES-GCM). If you forget it, the data cannot be recovered.</p></div>
+
+  <div class="card"><h2 style="margin-top:0">Backup</h2><div class="row"><button id="btnExport">Export backup</button><label class="row" style="margin:0"><span class="hint">Import backup</span><input id="fileImport" type="file" accept="application/json"></label></div><p class="hint">Backups are encrypted if a passcode is set.</p><button id="btnWipe" class="danger">Delete all data on this device</button></div>
+</section>
+</main>
+
+<dialog id="dlg"><div id="dlgBody"></div></dialog>
+<dialog id="ctDlg"><h2 style="margin-top:0">New note format</h2><label for="ctName">Name</label><input id="ctName" maxlength="60"><label for="ctFields" style="margin-top:10px">Field names (one per line)</label><textarea id="ctFields" rows="6" placeholder="Site&#10;Findings&#10;Intervention&#10;Plan"></textarea><div class="actions"><button id="ctSave" class="primary">Save format</button><button id="ctCancel">Cancel</button></div></dialog>
+<pre id="printArea"></pre>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+<script src="./core.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
