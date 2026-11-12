@@ -49,14 +49,13 @@ GitVoice/
 
 🚀 Quick Start Guide
 1. Clone the Repository
-git clone https://github.com/handdlevault-official/handdlevault-official-GitVoice.git
-cd handdlevault-official-GitVoice
+git clone [https://github.com/handdlevault-official/gitvoice-clinical-dashboard.git](https://github.com/handdlevault-official/gitvoice-clinical-dashboard.git)
+cd gitvoice-clinical-dashboard
 
-2. Run the Frontend
+2. 2. Run the Frontend
 Simply open index.html in any modern web browser (Google Chrome recommended) to access the dashboard interface and test the voice recording features.
 
 3. Set Up the Backend (Optional - Python/FastAPI)
-
 # Install required dependencies
 pip install -r requirements.txt
 
@@ -68,4 +67,4 @@ Distributed under the MIT License. See the LICENSE file for more information.
 Managed by handdlevault-official 🚀
 
 
-Kopyahin mo lang iyan at i-update sa iyong `README.md` sa GitHub repository para maging malinis, propesyonal, at sakto sa ating code files ang buong pahina!
+Kopyahin mo lang iyan at i-paste sa iyong `README.md` sa GitHub para maging wasto at konektado ang lahat ng git commands sa iyong bagong repository name!
