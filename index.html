@@ -10,24 +10,14 @@
 <body class="bg-slate-50 text-slate-800 flex items-center justify-center min-h-screen p-4 m-0">
 
     <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg border border-slate-100 text-center">
-        <header class="mb-5">
+        <header class="mb-6">
             <h1 class="text-3xl font-extrabold text-blue-900 tracking-tight">🎙️ GitVoice</h1>
             <p class="text-sm text-slate-500 mt-1">Voice-Activated Clinical Assistant for Nurses</p>
         </header>
 
-        <!-- Mode Switcher Tabs (Voice-to-Chart vs Text-to-Voice) -->
-        <div class="flex bg-slate-100 p-1 rounded-xl mb-6">
-            <button id="tabVoiceToText" onclick="switchMode('vtt')" class="w-1/2 py-2 text-xs font-bold rounded-lg bg-white text-blue-900 shadow-sm transition cursor-pointer">
-                🎤 Voice-to-Chart
-            </button>
-            <button id="tabTextToVoice" onclick="switchMode('ttv')" class="w-1/2 py-2 text-xs font-bold rounded-lg text-slate-500 hover:text-slate-700 transition cursor-pointer">
-                🔊 Text-to-Voice
-            </button>
-        </div>
-
         <main class="space-y-6">
-            <!-- SECTION 1: Voice-to-Chart -->
-            <section id="vttSection" class="bg-blue-50/50 p-6 rounded-xl border border-blue-100">
+            <!-- Ward Voice Command (Voice-to-Chart) -->
+            <section class="bg-blue-50/50 p-6 rounded-xl border border-blue-100">
                 <h2 class="text-lg font-semibold text-slate-700">Ward Voice Command</h2>
                 <p class="text-xs text-slate-500 mt-1 mb-6">Tap record to dictate patient logs or clinical notes safely.</p>
                 
@@ -42,23 +32,6 @@
 
                 <div id="statusIndicator" class="mt-6 text-xs font-medium text-slate-600 bg-white p-3 rounded-lg border border-slate-200 shadow-sm">
                     Status: Ready for voice input
-                </div>
-            </section>
-
-            <!-- SECTION 2: Text-to-Voice Command -->
-            <section id="ttvSection" class="hidden bg-indigo-50/50 p-6 rounded-xl border border-indigo-100 text-left">
-                <h2 class="text-lg font-semibold text-slate-700 text-center">Text-to-Voice Command</h2>
-                <p class="text-xs text-slate-500 mt-1 mb-4 text-center">Type handover notes or alerts for GitVoice to read aloud.</p>
-                
-                <textarea id="ttsInput" rows="3" placeholder="e.g., Attention Ward 4: Room 302 needs vital signs recheck..." class="w-full bg-white text-slate-700 text-xs p-3 rounded-xl border border-indigo-200 focus:outline-none focus:border-indigo-500 mb-3"></textarea>
-                
-                <div class="flex gap-2">
-                    <button onclick="speakTextCommand()" class="w-3/4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-xl shadow-md cursor-pointer transition text-xs flex items-center justify-center gap-2">
-                        🔊 Speak Command
-                    </button>
-                    <button onclick="stopSpeaking()" class="w-1/4 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2.5 px-2 rounded-xl cursor-pointer transition text-xs">
-                        ⏹️ Stop
-                    </button>
                 </div>
             </section>
 
