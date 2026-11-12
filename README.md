@@ -62,6 +62,9 @@ uvicorn main:app --reload
 Distributed under the MIT License. See the LICENSE file for more information.
 Managed by handdlevault.official 🚀
 
+---
+
+# GitVoice Preview.PNG
 
 <div align="center">
 
@@ -84,7 +87,5 @@ Managed by handdlevault.official 🚀
 </div>
 
 ---
-
-
 
 <FollowUp label="Want me to generate the main.py FastAPI backend file to complete your repository setup?" query="Yes, show me the main.py FastAPI backend file for GitVoice."/>
