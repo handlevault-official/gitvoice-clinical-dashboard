@@ -256,23 +256,21 @@
             updateStatus("Clinical Note formatted via core.js! 🩺✨", "text-emerald-600 font-semibold");
         }
 
-        function copyChart() {
+                function copyChart() {
             const text = document.getElementById("soapOutput").textContent;
             navigator.clipboard.writeText(text);
             updateStatus("Copied Formatted Note to clipboard!", "text-blue-600");
         }
+    </script>
 
-              <!-- Load Core Logic (Hinding-hindi masisira) -->
+    <!-- Load Core Logic (Hinding-hindi masisira) -->
     <script src="core.js"></script>
 
     <!-- Load Storage Manager (Hiwalay na file) -->
     <script src="storage-manager.js"></script>
 
     <!-- Gemini Copilot & Dashboard Scripts -->
-    <script src="gemini-copilot.js"></script>>
+    <script src="gemini-copilot.js"></script>
 
-}
-        
-    </script>
 </body>
 </html>
