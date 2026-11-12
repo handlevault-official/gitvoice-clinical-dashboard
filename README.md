@@ -4,7 +4,7 @@
 ![GitVoice Dashboard Preview](gitvoice-preview.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-rose?style=for-the-badge&logo=ko-fi)](ko-fi.com//handlevaultofficial)
+[![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-rose?style=for-the-badge&logo=ko-fi)](https://ko-fi.com/handlevaultofficial)
 [![GitHub Sponsors](https://img.shields.io/badge/Sponsor-%E2%99%A5_GitHub-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white)](https://github.com/sponsors/handdlevault-official)
 
 ---
