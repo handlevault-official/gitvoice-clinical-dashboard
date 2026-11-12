@@ -63,4 +63,28 @@ Distributed under the MIT License. See the LICENSE file for more information.
 Managed by handdlevault.official 🚀
 
 
+<div align="center">
+
+  <h1 align="center">🎙️ GitVoice</h1>
+  <p align="center"><strong>Enterprise-Grade Voice-to-Charting Co-Pilot for Nurses</strong></p>
+  
+  <p>
+    <a href="https://github.com/handdlevault.official/GitVoice/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=opensourceinitiative" alt="MIT License"></a>
+    <a href="https://fastapi.tiangolo.com/"><img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI"></a>
+    <a href="https://ai.google.dev/"><img src="https://img.shields.io/badge/Gemini_2.5_Flash-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white" alt="Gemini AI"></a>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder_API"><img src="https://img.shields.io/badge/MediaRecorder-API-red?style=for-the-badge" alt="MediaRecorder"></a>
+  </p>
+
+  <p>
+    <a href="https://ko-fi.com/YOUR_KOFI_USERNAME"><img src="https://img.shields.io/badge/Ko--fi-Support%20GitVoice-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
+    <a href="https://github.com/sponsors/YOUR_GITHUB_USERNAME"><img src="https://img.shields.io/badge/Sponsor-%E2%99%A5_GitHub-ea4aaa?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="GitHub Sponsors"></a>
+  </p>
+
+  <h3>🩺 Talk Less, Care More. Instant 3 AM Ward Charting.</h3>
+</div>
+
+---
+
+
+
 <FollowUp label="Want me to generate the main.py FastAPI backend file to complete your repository setup?" query="Yes, show me the main.py FastAPI backend file for GitVoice."/>
