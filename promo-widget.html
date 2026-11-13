@@ -14,7 +14,7 @@
 
 <script>
 (function() {
-  const ONE_HOUR_MS = 60 * 60 * 1000; // 1 hour (3,600,000 ms)
+  const THREE_HOURS_MS = 3 * 60 * 60 * 1000; // 3 hours (10,800,000 ms)
   const barEl = document.getElementById('hvPromoBar');
   const vidEl = document.getElementById('hvPromoVid');
   const secEl = document.getElementById('hvSecLeft');
@@ -39,7 +39,7 @@
     }, 1000);
   }
 
-  // Trigger 5-second promo every 1 hour of active use
-  setInterval(triggerFiveSecPromo, ONE_HOUR_MS);
+  // Trigger 5-second promo every 3 hours of active use
+  setInterval(triggerFiveSecPromo, THREE_HOURS_MS);
 })();
 </script>
