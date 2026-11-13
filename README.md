@@ -30,7 +30,7 @@
 * **Core Logic & Storage:** `core.js`, `storage-manager.js`
 * **AI & Voice Processing:** Gemini AI Copilot Integration (`gemini-copilot.js`) & Web Speech API
 * **Backend (Optional):** Python, FastAPI, Uvicorn, Pydub
-* **Versioning & Organization:** Managed under `handdlevault-official`
+* **Versioning & Organization:** Managed under `handlevault-official`
 
 ---
 
