@@ -1,0 +1,8 @@
+gitvoice-clinical-dashboard/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
+├── .gitignore
+├── index.html
+├── manifest.json
+└── repo.js
