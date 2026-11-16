@@ -1,262 +1,554 @@
-<!doctype html>
-<html lang="en" data-theme="dark">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>CareNote Assist: Voice and Text Charting Helper</title>
-<meta name="description" content="Private, offline-capable drafting helper for nurses and doctors: dictate or type notes in DAR, SOAP, SBAR and handoff formats.">
-<meta name="theme-color" content="#090d16" id="metaThemeColor">
-<script src="https://cdn.tailwindcss.com"></script> 
-<link rel="manifest" href="./manifest.json">
-<link rel="icon" type="image/png" href="./icon-192.png">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<style>
-/* Night Shift & Relaxing Medical Theme (Default) */
-:root,
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --bg: #090d16;          
-  --card: #101726;        
-  --ink: #e2e8f0;         
-  --mute: #8a99b5;        
-  --accent: #2dd4bf;      
-  --accent-ink: #04201c;  
-  --warn: #fbbf24;        
-  --bad: #f87171;         
-  --line: #23314d;        
-  --field: #0b111e;       
-  --btn-bg: #19243b;      
-  --btn-hover: #22314f;   
-  --btn-line: #3f5580;    
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisp Career Gate | All-in-One Offer Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+            --input-bg: #1f2937;
+            --input-border: #374151;
+            --envelope-flap: #374151;
+            --accent: #10b981;
+            --accent-hover: #059669;
+        }
 
-/* Day Shift / Light Mode kapag pinindot ang toggle */
-:root[data-theme="light"] {
-  color-scheme: light;
-  --bg: #f4f7fb;
-  --card: #ffffff;
-  --ink: #0f1a2e;
-  --mute: #53627d;
-  --accent: #0f9b8e;
-  --accent-ink: #ffffff;
-  --warn: #a16207;
-  --bad: #b91c1c;
-  --line: #cbd5e1;
-  --field: #f8fafd;
-  --btn-bg: #ffffff;
-  --btn-hover: #f1f5f9;
-  --btn-line: #94a3b8; /* Malinaw na dark gray/blue border para kitang-kita sa light mode */
-}
+        .light-mode {
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --border-color: #e5e7eb;
+            --input-bg: #f9fafb;
+            --input-border: #d1d5db;
+            --envelope-flap: #e5e7eb;
+            --accent: #059669;
+            --accent-hover: #047857;
+        }
 
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:env(safe-area-inset-bottom);transition:background 0.25s ease,color 0.25s ease}
-button,input,select,textarea{font:inherit;color:inherit}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
 
-/* Tactile & Visible Buttons */
-button {
-  cursor: pointer;
-  border: 1.5px solid var(--btn-line);
-  background: var(--btn-bg);
-  color: var(--ink);
-  border-radius: 10px;
-  padding: 10px 14px;
-  min-height: 44px;
-  font-weight: 600;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-  transition: all 0.15s ease;
-}
-button:hover:not(:disabled) {
-  background: var(--btn-hover);
-  border-color: var(--accent);
-}
-button:active:not(:disabled) {
-  transform: translateY(1px);
-}
-button.primary {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: transparent;
-  font-weight: 700;
-  box-shadow: none;
-}
-button.primary:hover:not(:disabled) {
-  background: var(--accent);
-  filter: brightness(1.08);
-}
-button.danger {
-  background: rgba(248, 113, 113, 0.12);
-  color: var(--bad);
-  border-color: rgba(248, 113, 113, 0.5);
-}
-button.danger:hover:not(:disabled) {
-  background: rgba(248, 113, 113, 0.22);
-  border-color: var(--bad);
-}
-button:disabled { opacity: .45; cursor: not-allowed; box-shadow: none; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-input,select,textarea{width:100%;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-textarea{resize:vertical;min-height:70px}input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-label{display:block;font-size:13px;color:var(--mute);margin-bottom:4px;font-weight:600}
-header.top{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--card);border-bottom:1px solid var(--line);padding-top:max(10px,env(safe-area-inset-top))}
-.brand{font-weight:800;color:var(--accent);font-size:1.1rem;letter-spacing:-0.02em}
-.tabs{display:flex;gap:6px}.tabs button{padding:8px 14px;min-height:40px}.tabs button.on{background:var(--accent);color:var(--accent-ink);border-color:transparent;font-weight:700}
-.safety{margin:0;padding:8px 14px;background:rgba(45,212,191,.08);color:var(--accent);font-size:13px;border-bottom:1px solid var(--line)}
-main{max-width:860px;margin:0 auto;padding:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.full{grid-column:1/-1}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.hint{color:var(--mute);font-size:13px;margin:4px 0}.warn{color:var(--warn);font-size:14px;margin:6px 0}
-details>summary{cursor:pointer;font-weight:700;list-style:none}details>summary::-webkit-details-marker{display:none}details>summary::before{content:"\25B8  "}details[open]>summary::before{content:"\25BE  "}
-.vgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.vgrid input.flag{border-color:var(--warn);background:rgba(251,191,36,.14)}
-.fld{margin-bottom:12px}.fld .head{display:flex;justify-content:space-between;align-items:center;gap:8px}.fld .tools{display:flex;gap:6px}
-.mic{padding:6px 12px;min-height:38px}.mic.on{background:var(--bad);color:#fff;border-color:transparent}
-#micState{font-size:14px;color:var(--mute)}body[data-mic=on] #micState{color:var(--bad);font-weight:700}#interim{color:var(--mute);font-style:italic;min-height:1.4em;font-size:14px}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.chip{padding:6px 12px;min-height:36px;border-radius:99px;font-size:14px}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:14px}
-pre{white-space:pre-wrap;word-break:break-word;background:var(--field);border:1px solid var(--line);border-radius:10px;padding:12px;font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;margin:0;color:var(--ink)}
-.note-item{display:block;width:100%;text-align:left;margin-bottom:8px}.badge{display:inline-block;font-size:12px;padding:1px 8px;border-radius:99px;border:1px solid var(--line);color:var(--mute);margin-right:6px}.badge.final{color:var(--accent);border-color:var(--accent)}
-.overlay{position:fixed;inset:0;z-index:20;background:var(--bg);display:grid;place-items:center;padding:20px}.overlay form{max-width:360px;width:100%}
-dialog{width:min(640px,94vw);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:16px}dialog::backdrop{background:rgba(0,0,0,.7)}
-#toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);max-width:92vw;background:#1e293b;color:#fff;padding:10px 16px;border-radius:10px;z-index:30;font-size:14px;box-shadow:0 6px 24px rgba(0,0,0,.5);border:1px solid var(--line)}
-#printArea{display:none}
-@media(max-width:560px){.vgrid{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.brand{width:100%}}
-@media print{body>*:not(#printArea){display:none!important}#printArea{display:block!important;background:#fff;color:#000;border:0;font-size:12pt}}
-</style>
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .brand {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .controls-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-toggle {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-toggle:hover {
+            border-color: var(--accent);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 22px;
+            line-height: 1.6;
+        }
+
+        /* Form Layout */
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        input[type="text"], textarea, select {
+            width: 100%;
+            padding: 13px 16px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 15px;
+            outline: none;
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            border-color: var(--accent);
+        }
+
+        textarea {
+            resize: vertical;
+            height: 85px;
+        }
+
+        /* Envelope Styles Selection */
+        .envelope-preview-box {
+            margin: 25px auto;
+            width: 220px;
+            height: 140px;
+            position: relative;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 110px;
+            background: var(--input-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 0 0 10px 10px;
+            z-index: 2;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 65px;
+            background: var(--envelope-flap);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+            z-index: 3;
+        }
+
+        .envelope-preview-box.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* Variant Envelope Themes */
+        .style-mint .envelope-body { border-color: #10b981; }
+        .style-gold .envelope-body { border-color: #f59e0b; }
+        .style-cyber .envelope-body { border-color: #3b82f6; }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .primary-btn {
+            background-color: var(--accent);
+            color: #ffffff;
+            font-weight: 600;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 5px;
+        }
+
+        .primary-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .offer-content {
+            text-align: left;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .offer-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .offer-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 6px;
+        }
+
+        .offer-body {
+            font-size: 16px;
+            color: var(--text-main);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+
+        .offer-body p {
+            margin-bottom: 16px;
+            text-align: left;
+            color: var(--text-main);
+        }
+
+        .actions {
+            display: flex;
+            gap: 14px;
+        }
+
+        .btn-accept {
+            background-color: var(--accent);
+            color: #ffffff;
+            flex: 1;
+            padding: 15px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-decline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            flex: 1;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-decline:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .share-box {
+            background: var(--input-bg);
+            border: 1px dashed var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            word-break: break-all;
+            margin-top: 12px;
+            color: var(--accent);
+            font-family: monospace;
+        }
+    </style>
 </head>
 <body>
-<div id="lock" class="overlay" hidden>
-  <form id="lockForm" autocomplete="off">
-    <h1 style="color:var(--accent)">CareNote Assist</h1>
-    <p class="hint">This device is locked. Enter your passcode to open your notes.</p>
-    <label for="lockPass">Passcode</label><input id="lockPass" type="password" autocomplete="current-password" required>
-    <p id="lockMsg" class="warn" role="alert"></p>
-    <button class="primary" style="width:100%">Unlock</button>
-  </form>
-</div>
 
-<header class="top">
-  <span class="brand">🌙 CareNote Assist</span>
-  <nav class="tabs" aria-label="Sections">
-    <button data-tab="new" class="on">New note</button>
-    <button data-tab="notes">Notes</button>
-    <button data-tab="settings">Settings</button>
-  </nav>
-  <div class="row">
-    <button id="btnThemeToggle" type="button" aria-label="Switch shift theme" style="padding:8px 12px;min-height:40px;font-size:13px;">🌙 Night Shift</button>
-    <button id="btnInstall" hidden>Install</button>
-    <button id="btnLock" hidden aria-label="Lock now" title="Lock now">Lock</button>
-  </div>
-</header>
-<p class="safety" role="note">🌙 <strong>Night Shift Ready:</strong> Designed to ease eye strain during long duties. Drafting aid only. Always review and file in your official facility system.</p>
+    <div class="container">
+        <!-- Top Navigation -->
+        <div class="top-bar">
+            <div class="brand" id="appBrand">Crisp Career Gate</div>
+            <div class="controls-group">
+                <button class="btn-toggle" id="navSwitchBtn" onclick="toggleMode()">HR Creator Mode ⚙️</button>
+                <button class="btn-toggle" onclick="toggleTheme()">☀️ / 🌙</button>
+            </div>
+        </div>
 
-<main id="app" hidden>
-<section id="tab-new">
-  <div class="card grid2">
-    <div><label for="role">Your role</label><select id="role"></select></div>
-    <div><label for="tpl">Note format</label><select id="tpl"></select></div>
-    <div class="full"><label for="patient">Patient label (bed/room or initials only)</label><input id="patient" maxlength="40" autocomplete="off" placeholder="e.g. Bed 12 / J.D."></div>
-  </div>
-  <p id="phiWarn" class="warn" role="alert" hidden></p>
+        <!-- ================= SECTION 1: HR SENDER CREATOR WIZARD ================= -->
+        <div id="sender-wizard">
+            <h1>Package Deal HR Studio</h1>
+            <p>Customize candidate details, theme accent, envelope style, and message below to generate a ready-to-send secure link.</p>
+            
+            <div class="form-grid">
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Candidate Full Name</label>
+                        <input type="text" id="cfgName" value="Alex Johnson" placeholder="e.g. Maria Santos">
+                    </div>
+                    <div class="field-group">
+                        <label>Position / Role Title</label>
+                        <input type="text" id="cfgRole" value="Senior Remote Developer" placeholder="e.g. UI/UX Lead">
+                    </div>
+                </div>
 
-  <div class="card">
-    <div class="row"><div style="flex:1;min-width:180px"><label for="vlang">Voice language</label><select id="vlang"></select></div><div><span id="micState">Mic off</span> <button id="btnStop" hidden>Stop</button></div></div>
-    <div id="interim" aria-live="polite"></div>
-    <p class="hint">Tap the mic next to any field and speak. Say "period", "comma", "new line" for punctuation, "next field" to move on, "stop dictation" to finish. Voice recognition depends on your browser; see Settings for privacy notes.</p>
-  </div>
+                <div class="field-row">
+                    <div class="field-group">
+                        <label>Secret Passcode</label>
+                        <input type="text" id="cfgPass" value="CRISP-2026" placeholder="Passcode for candidate">
+                    </div>
+                    <div class="field-group">
+                        <label>Theme & Envelope Style</label>
+                        <select id="cfgStyle" onchange="previewStyleChange()">
+                            <option value="mint">Startup Mint (#10b981)</option>
+                            <option value="gold">Executive Gold (#f59e0b)</option>
+                            <option value="cyber">Cyber Blue (#3b82f6)</option>
+                        </select>
+                    </div>
+                </div>
 
-  <details id="vitalsCard" class="card" open>
-    <summary>Vitals</summary>
-    <div class="vgrid">
-      <div><label for="v-sbp">BP systolic</label><input id="v-sbp" inputmode="numeric"></div><div><label for="v-dbp">BP diastolic</label><input id="v-dbp" inputmode="numeric"></div>
-      <div><label for="v-hr">Heart rate</label><input id="v-hr" inputmode="numeric"></div><div><label for="v-rr">Resp. rate</label><input id="v-rr" inputmode="numeric"></div>
-      <div><label for="v-temp">Temp <span id="tempLbl">&deg;C</span></label><input id="v-temp" inputmode="decimal"></div><div><label for="v-spo2">SpO2 %</label><input id="v-spo2" inputmode="numeric"></div>
-      <div><label for="v-pain">Pain 0-10</label><input id="v-pain" inputmode="numeric"></div>
+                <div class="field-group">
+                    <label>Personalized Offer Message</label>
+                    <textarea id="cfgMsg">We are thrilled to extend this formal invitation for you to join our core engineering ecosystem. Your technical alignment and execution speed stood out across all evaluation tiers.</textarea>
+                </div>
+
+                <button class="primary-btn" onclick="generateOfferLink()">Generate Shareable Candidate Link 🔗</button>
+
+                <!-- Generated Link Display Area -->
+                <div id="linkResultSection" class="hidden" style="margin-top: 15px; text-align: left;">
+                    <label style="color: var(--accent);">Generated Secure Link (Copy & Send to Candidate):</label>
+                    <div class="share-box" id="shareableLinkOutput"></div>
+                    <button class="btn-toggle" style="width: 100%; margin-top: 8px; padding: 10px;" onclick="testGeneratedPortal()">Test This Candidate View 👁️‍🗨️</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= SECTION 2: CANDIDATE RECEIVER VIEW ================= -->
+
+        <!-- Step A: Passcode Gate -->
+        <div id="candidate-gate" class="hidden">
+            <h1>Secure Offer Portal</h1>
+            <p>Hello <span id="viewCandidateName" style="color: var(--accent); font-weight: 600;"></span>. Enter your assigned confidential HR Passcode to unlock your official onboarding document.</p>
+            
+            <div class="form-grid">
+                <input type="text" id="inputCandidatePass" placeholder="Enter Access Code..." style="text-align: center;">
+                <button class="primary-btn" onclick="verifyCandidatePass()">Unlock Secure Mailbox 🔓</button>
+            </div>
+        </div>
+
+        <!-- Step B: Animated Envelope Reveal -->
+        <div id="candidate-envelope" class="hidden">
+            <h1>Mailbox Unlocked</h1>
+            <p>Your official encrypted parcel has arrived. Tap the envelope below to open it.</p>
+            
+            <div class="envelope-preview-box" id="envelopeContainer" onclick="openEnvelopeAnimation()">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body">
+                    <div style="text-align: center; padding-top: 40px; color: var(--accent); font-weight: 700; font-size: 13px;">OFFICIAL OFFER</div>
+                </div>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 15px;">Tap envelope to extract contents</p>
+        </div>
+
+        <!-- Step C: The Actual Offer Letter -->
+        <div id="candidate-letter" class="hidden offer-content">
+            <div class="offer-header">
+                <div style="font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Confidential Onboarding Package</div>
+                <div class="offer-title" id="viewRoleTitle">Position: Title</div>
+            </div>
+            
+            <div class="offer-body">
+                <p>Dear <span id="viewLetterName" style="color: var(--text-main); font-weight: 600;"></span>,</p>
+                <p id="viewCustomMessage">Loading offer details...</p>
+                <p>Please review the terms and select your response below to finalize your status.</p>
+            </div>
+
+            <div class="actions">
+                <button class="btn-accept" onclick="handleCandidateAnswer('accept')">Accept Offer 🚀</button>
+                <button class="btn-decline" onclick="handleCandidateAnswer('decline')">Request Discussion 💬</button>
+            </div>
+        </div>
+
+        <!-- Step D: Final Feedback Screen -->
+        <div id="candidate-response" class="hidden" style="padding: 25px 0;">
+            <h1 id="feedbackTitle" style="margin-bottom: 14px;">Thank You!</h1>
+            <p id="feedbackDesc" style="color: var(--text-main); font-size: 16px; margin-bottom: 25px;"></p>
+            <button class="btn-toggle" style="width: 100%; padding: 14px;" onclick="resetToCreator()">Back to HR Creator Studio ⚙️</button>
+        </div>
+
     </div>
-    <label for="vquick">Quick entry: type or say all vitals at once</label>
-    <div class="row"><input id="vquick" style="flex:1;min-width:200px" placeholder="BP 120/80, HR 88, RR 18, temp 37.2, SpO2 98, pain 3"><button id="vmic" class="mic" data-target="vquick" aria-label="Dictate vitals">Mic</button><button id="vfill">Fill</button></div>
-    <p class="hint">Highlighted boxes are outside your set ranges (Settings). They are reminders only; use clinical judgment.</p>
-    <button id="vinsert">Insert vitals into note</button>
-  </details>
 
-  <div id="fields"></div>
+    <script>
+        // Active configuration payload state
+        let activeConfig = {
+            name: "Alex Johnson",
+            role: "Senior Remote Developer",
+            pass: "CRISP-2026",
+            style: "mint",
+            msg: "We are thrilled to extend this formal invitation for you to join our core engineering ecosystem."
+        };
 
-  <details id="chipsCard" class="card"><summary>Quick phrases</summary><p class="hint">Only insert statements that are true for your patient right now. Edit this list in Settings.</p><div id="chips" class="chips"></div></details>
+        // Check on page load if URL has encoded config data
+        window.onload = function() {
+            const hash = window.location.hash;
+            if (hash && hash.startsWith('#data=')) {
+                try {
+                    const jsonString = atob(hash.substring(6));
+                    activeConfig = JSON.parse(jsonString);
+                    applyConfigStyles(activeConfig.style);
+                    loadCandidateView();
+                } catch (e) {
+                    console.error("Failed to parse link data");
+                }
+            }
+        };
 
-  <div class="actions">
-    <button id="btnSave" class="primary">💾 Save draft</button>
-    <button id="btnFinal">✅ Finalize</button>
-    <button id="btnCopy">📋 Copy</button>
-    <button id="btnTxt">⬇️ Download .txt</button>
-    <button id="btnPrint">🖨️ Print</button>
-    <button id="btnNew" class="danger">🗑️ Clear form</button>
-  </div>
-  <details class="card"><summary>Preview</summary><pre id="preview"></pre></details>
-</section>
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
 
-<section id="tab-notes" hidden>
-  <div class="card"><label for="search">Search notes (patient label, text, format)</label><input id="search" type="search" placeholder="Search"><p id="notesCount" class="hint"></p></div>
-  <div id="notesList"></div>
-</section>
+        function applyConfigStyles(styleName) {
+            const root = document.documentElement;
+            const envBox = document.getElementById('envelopeContainer');
+            if(envBox) envBox.className = "envelope-preview-box style-" + styleName;
 
-<section id="tab-settings" hidden>
-  <div class="card"><h2 style="margin-top:0">Profile</h2><div class="grid2">
-    <div><label for="s-author">Name on notes (e.g. R. Santos, RN)</label><input id="s-author"></div><div><label for="s-unit">Unit / ward (optional)</label><input id="s-unit"></div>
-    <div><label for="s-temp">Temperature unit</label><select id="s-temp"><option value="C">Celsius</option><option value="F">Fahrenheit</option></select></div>
-    <div><label for="s-lock">Auto-lock after (minutes, needs passcode)</label><input id="s-lock" type="number" min="1" max="120"></div>
-  </div></div>
+            if (styleName === 'gold') {
+                root.style.setProperty('--accent', '#f59e0b');
+                root.style.setProperty('--accent-hover', '#d97706');
+            } else if (styleName === 'cyber') {
+                root.style.setProperty('--accent', '#3b82f6');
+                root.style.setProperty('--accent-hover', '#2563eb');
+            } else {
+                root.style.setProperty('--accent', '#10b981');
+                root.style.setProperty('--accent-hover', '#059669');
+            }
+        }
 
-  <div class="card"><h2 style="margin-top:0">Voice</h2>
-    <label><input id="s-punct" type="checkbox" style="width:auto"> Spoken punctuation (say "period", "comma", "new line")</label>
-    <label><input id="s-ondevice" type="checkbox" style="width:auto"> Prefer on-device voice recognition when the browser supports it</label>
-    <p class="hint"><strong>Privacy note:</strong> in many browsers (for example Chrome) voice recognition sends the audio to the browser maker's speech service, so it needs internet and the audio leaves your device. On-device mode keeps audio on the device but is not available in every browser or language. Typing never leaves your device. Avoid dictating identifying details unless your facility has approved the tool.</p></div>
+        function previewStyleChange() {
+            const selectedStyle = document.getElementById('cfgStyle').value;
+            applyConfigStyles(selectedStyle);
+        }
 
-  <div class="card"><h2 style="margin-top:0">Vitals highlight ranges</h2><p class="hint">Generic adult defaults that only highlight values. Set what your unit uses.</p><div id="ranges" class="vgrid"></div></div>
+        function generateOfferLink() {
+            activeConfig.name = document.getElementById('cfgName').value.trim() || "Candidate";
+            activeConfig.role = document.getElementById('cfgRole').value.trim() || "Team Member";
+            activeConfig.pass = document.getElementById('cfgPass').value.trim() || "1234";
+            activeConfig.style = document.getElementById('cfgStyle').value;
+            activeConfig.msg = document.getElementById('cfgMsg').value.trim() || "Welcome!";
 
-  <div class="card"><h2 style="margin-top:0">Quick phrases</h2><label for="s-phrases">One phrase per line</label><textarea id="s-phrases" rows="5"></textarea></div>
+            const jsonString = JSON.stringify(activeConfig);
+            const encoded = btoa(jsonString);
+            const fullLink = window.location.origin + window.location.pathname + "#data=" + encoded;
 
-  <div class="card"><h2 style="margin-top:0">Custom note formats</h2><p class="hint">Build your own template (for example a post-op check or a wound care note).</p><div id="ctList"></div><button id="ctAdd">Add format</button></div>
+            document.getElementById('shareableLinkOutput').innerText = fullLink;
+            document.getElementById('linkResultSection').classList.remove('hidden');
+        }
 
-  <div class="card"><h2 style="margin-top:0">Security</h2><div id="passArea"></div><p class="hint">Notes are saved only in this browser on this device. A passcode encrypts them (AES-GCM). If you forget it, the data cannot be recovered.</p></div>
+        function testGeneratedPortal() {
+            applyConfigStyles(activeConfig.style);
+            loadCandidateView();
+        }
 
-  <div class="card"><h2 style="margin-top:0">Backup</h2><div class="row"><button id="btnExport">Export backup</button><label class="row" style="margin:0"><span class="hint">Import backup</span><input id="fileImport" type="file" accept="application/json"></label></div><p class="hint">Backups are encrypted if a passcode is set.</p><button id="btnWipe" class="danger">Delete all data on this device</button></div>
-</section>
-</main>
+        function loadCandidateView() {
+            document.getElementById('viewCandidateName').innerText = activeConfig.name;
+            document.getElementById('viewLetterName').innerText = activeConfig.name;
+            document.getElementById('viewRoleTitle').innerText = "Position: " + activeConfig.role;
+            document.getElementById('viewCustomMessage').innerText = activeConfig.msg;
 
-<dialog id="dlg"><div id="dlgBody"></div></dialog>
-<dialog id="ctDlg"><h2 style="margin-top:0">New note format</h2><label for="ctName">Name</label><input id="ctName" maxlength="60"><label for="ctFields" style="margin-top:10px">Field names (one per line)</label><textarea id="ctFields" rows="6" placeholder="Site&#10;Findings&#10;Intervention&#10;Plan"></textarea><div class="actions"><button id="ctSave" class="primary">Save format</button><button id="ctCancel">Cancel</button></div></dialog>
-<pre id="printArea"></pre>
-<div id="toast" role="status" aria-live="polite" hidden></div>
+            // Switch UI
+            document.getElementById('sender-wizard').classList.add('hidden');
+            document.getElementById('linkResultSection').classList.add('hidden');
+            document.getElementById('candidate-gate').classList.remove('hidden');
+            document.getElementById('navSwitchBtn').innerText = "Back to HR Studio ⚙️";
+            document.getElementById('appBrand').innerText = "Crisp Candidate Portal";
+        }
 
-<!-- Night Shift / Day Shift Theme Controller -->
-<script>
-(() => {
-  const THEME_KEY = 'carenote_shift_theme';
-  const btn = document.getElementById('btnThemeToggle');
-  const metaTheme = document.getElementById('metaThemeColor');
+        function verifyCandidatePass() {
+            const entered = document.getElementById('inputCandidatePass').value.trim();
+            if(entered !== activeConfig.pass) {
+                alert("Incorrect passcode. Please check the code provided by HR (Hint: " + activeConfig.pass + ")");
+                return;
+            }
 
-  function applyTheme(theme) {
-    const isLight = theme === 'light';
-    document.documentElement.setAttribute('data-theme', isLight ? 'light' : 'dark');
-    if (btn) btn.textContent = isLight ? '☀️ Day Shift' : '🌙 Night Shift';
-    if (metaTheme) metaTheme.setAttribute('content', isLight ? '#f4f7fb' : '#090d16');
-    localStorage.setItem(THEME_KEY, isLight ? 'light' : 'dark');
-  }
+            document.getElementById('candidate-gate').classList.add('hidden');
+            document.getElementById('candidate-envelope').classList.remove('hidden');
+        }
 
-  const saved = localStorage.getItem(THEME_KEY) || 'dark';
-  applyTheme(saved);
+        function openEnvelopeAnimation() {
+            const env = document.getElementById('envelopeContainer');
+            env.classList.add('open');
 
-  if (btn) {
-    btn.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      applyTheme(current === 'light' ? 'dark' : 'light');
-    });
-  }
-})();
-</script>
+            setTimeout(() => {
+                document.getElementById('candidate-envelope').classList.add('hidden');
+                document.getElementById('candidate-letter').classList.remove('hidden');
+            }, 700);
+        }
 
-<script src="./core.js"></script>
-<script src="./app.js"></script>
+        function handleCandidateAnswer(choice) {
+            document.getElementById('candidate-letter').classList.add('hidden');
+            document.getElementById('candidate-response').classList.remove('hidden');
 
-<!-- I-link mo dito ang repo.js -->
-<script src="repo.js"></script>
+            if(choice === 'accept') {
+                document.getElementById('feedbackTitle').innerText = "Welcome to the Team! 🎉";
+                document.getElementById('feedbackDesc').innerText = "Your acceptance for " + activeConfig.role + " has been successfully recorded. HR will email your setup credentials shortly.";
+            } else {
+                document.getElementById('feedbackTitle').innerText = "Discussion Requested 💬";
+                document.getElementById('feedbackDesc').innerText = "Your request has been logged. A talent partner will contact you soon to schedule a brief alignment call.";
+            }
+        }
+
+        function toggleMode() {
+            // Toggle back to sender if currently viewing candidate
+            resetToCreator();
+        }
+
+        function resetToCreator() {
+            window.location.hash = ""; // Clear url hash
+            location.reload();
+        }
+    </script>
 </body>
 </html>
